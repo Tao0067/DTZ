@@ -28,7 +28,7 @@ trait ApiResponse
 
     public function respond($data, $header = [])
     {
-        return Response()::json($data,$this->statusCode,$header);
+        return Response::json($data,$this->statusCode,$header);
     }
 
     public function status($status,array $data,$code = null)
@@ -59,14 +59,24 @@ trait ApiResponse
         return $this->status($status,['message' => $message]);
     }
 
+    /**
+     * 500
+     * @param string $message
+     * @return mixed
+     */
     public function internalError($message = 'Internal Error')
     {
-         return $this->setStatusCode(FoundationResponse::HTTP_INTERNAL_SERVER_ERROR)->failed($message);
+         return $this->failed($message,FoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 201
+     * @param string $message
+     * @return mixed
+     */
     public function created($message = "created")
     {
-        return $this->setStatusCode(FoundationResponse::HTTP_CREATED)->failed($message);
+        return $this->failed($message,FoundationResponse::HTTP_CREATED);
     }
 
     public function success($data,$status = 'success')
@@ -74,8 +84,29 @@ trait ApiResponse
         return $this->status($status,compact($data));
     }
 
+    /**
+     * 404
+     * @param string $message
+     * @return mixed
+     */
     public function notFond($message = 'Not Fond!')
     {
-        return $this->setStatusCode(Foundationresponse::HTTP_NOT_FOUND)->failed($message);
+        return $this->failed($message,Foundationresponse::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * 401
+     * @param string $message
+     * @return mixed
+     */
+    public function unauthorised($message = 'unauthorised')
+    {
+        return $this->failed($message,FoundationResponse::HTTP_UNAUTHORIZED);
+
+    }
+
+    public function error($message = 'Bad Request')
+    {
+        return $this->failed($message);
     }
 }
