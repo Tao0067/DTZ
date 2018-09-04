@@ -24,8 +24,4 @@ Route::get('index','Api\IndexController@index');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('getDetails','Api\IndexController@gitDetails');
 });
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function(){
-    Route::get('/user', function( Request $request ){
-        return $request->user();
-    });
-});
+

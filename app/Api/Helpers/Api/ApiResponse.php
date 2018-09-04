@@ -81,7 +81,7 @@ trait ApiResponse
 
     public function success($data,$status = 'success')
     {
-        return $this->status($status,compact($data));
+        return $this->status($status,$data);
     }
 
     /**

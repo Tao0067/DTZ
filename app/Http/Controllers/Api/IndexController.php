@@ -50,9 +50,9 @@ class IndexController extends ApiController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = User::created($input);
-        $success['token'] = $user->createdToken('MyApp')->accessTokne;
-        $success['name']  = $user->name();
+        $user = User::create($input);
+        $success['token'] = $user->createToken('MyApp')->accessToken;
+        $success['name']  = $user->name;
 
         return $this->success($success);
     }
