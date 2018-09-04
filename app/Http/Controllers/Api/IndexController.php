@@ -54,7 +54,7 @@ class IndexController extends ApiController
         $success['token'] = $user->createdToken('MyApp')->accessTokne;
         $success['name']  = $user->name();
 
-        return $this->success();
+        return $this->success($success);
     }
 
     public function getDetails()
