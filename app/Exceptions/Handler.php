@@ -46,6 +46,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return response(['error' => array_first(array_collapse($exception->errors()))], 400);
+        }
+        // 用户认证的异常，我们需要返回 401 的 http code 和错误信息
+        if ($exception instanceof UnauthorizedHttpException) {
+            return response($exception->getMessage(), 401);
+        }
+
         return parent::render($request, $exception);
     }
 }
