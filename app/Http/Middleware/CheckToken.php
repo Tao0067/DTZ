@@ -29,21 +29,21 @@ class CheckToken  extends ApiController
                 return $this->notFond();
             }
             //如果想向控制器里传入用户信息，将数据添加到$request里面
-            $request->attributes->add($user);//添加参数
+//            $request->attributes->add($request);//添加参数
             return $next($request);
 
         } catch (TokenExpiredException $e) {
 
-            return $this->unauthorised('token overdue');
+            return $this->unauthorised('Token overdue');
 
         } catch (TokenInvalidException $e) {
 
-            return $this->unauthorised('token Invalid');  //token无效
+            return $this->unauthorised('Token Invalid');  //token无效
 
 
         } catch (JWTException $e) {
 
-            return $this->unauthorised('be short of token '); //token为空
+            return $this->unauthorised('Be short of token '); //token为空
 
         }
 
