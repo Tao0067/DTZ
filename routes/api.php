@@ -30,14 +30,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('auth')->group(function($router) {
     $router->post('login', 'Api\AuthController@login');
     $router->post('logout', 'Api\AuthController@logout');
-//    $router->get('info', 'Api\AuthController@getUserInfo');
+
 
 });
 
 
-Route::group(['middleware' => 'auth:api'], function() {
-    Route::post('logout', 'UserController@logout');    //登出
-    Route::get('info', 'Api\AuthController@getUserInfo');    //关于我
+Route::group(['middleware' => ['jwt.api.auth']], function () { //
+    Route::get('info', 'Api\AuthController@getUserInfo');
 });
 
 

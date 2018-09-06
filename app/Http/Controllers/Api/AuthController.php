@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class AuthController extends ApiController
@@ -26,7 +27,7 @@ class AuthController extends ApiController
         $params = $this->validate($request,$rules);
 
         if ($token = Auth::guard('api')->attempt($params)) {
-            return $this->success(['token'=>'bearer '.$token]);
+            return $this->success(['token'=>'Bearer '.$token]);
         }else{
             return $this->error();
         }
@@ -40,12 +41,11 @@ class AuthController extends ApiController
 
     public function getUserInfo()
     {
+
+
         $user = Auth::guard('api')->user();
-        if ($user) {
-            return $this->success($user);
-        }else{
-            return $this->unauthorised();
-        }
+         return $this->success($user);
+
 
     }
 }
