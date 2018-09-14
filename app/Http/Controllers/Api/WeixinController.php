@@ -19,7 +19,7 @@ class WeixinController
         $signature = $request->input('signature');
         $timestamp = $request->input('timestamp');
         $nonce = $request->input('nonce');
-//        $echostr = $request->input('echostr');
+        $echostr = $request->input('echostr');
         $token = 'cscscs';
 
         $tmpArr =  array($timestamp, $nonce, $token);
@@ -31,6 +31,6 @@ class WeixinController
             return response()->json(false);
         }
 
-        return response()->json(true);
+        return response()->json($echostr);
     }
 }
