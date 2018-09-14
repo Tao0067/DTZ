@@ -28,9 +28,9 @@ class WeixinController
         $tmpStr = sha1($tmpStr);
 
         if ($signature != $tmpStr) {
-            return response()->json('false');
+            return response()->json(false);
         }
 
-        return response()->json('true');
+        return response()->json(true);
     }
 }
