@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Api;
 
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 
 class WeixinController
@@ -28,7 +27,7 @@ class WeixinController
         $tmpStr = sha1($tmpStr);
 
         if ($signature != $tmpStr) {
-            return response()->json(false);
+            return response()->json($token);
         }
 
         return response()->json($echostr);
