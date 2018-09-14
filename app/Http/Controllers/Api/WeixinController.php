@@ -23,7 +23,7 @@ class WeixinController
         $token = 'cscscs';
 
         $tmpArr =  array($timestamp, $nonce, $token);
-        sort($tmpArr,SORT_STRING);
+        sort($tmpArr);
         $tmpStr = implode('',$tmpArr);
         $tmpStr = sha1($tmpStr);
 
