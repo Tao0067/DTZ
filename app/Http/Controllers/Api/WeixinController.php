@@ -30,8 +30,8 @@ class WeixinController
         Log::info($tmpStr);
 
         if ($signature == $tmpStr) {
-            return response()->json($echostr);
             Log::info($echostr);
+            return response()->json($echostr);
         }
 
     }
