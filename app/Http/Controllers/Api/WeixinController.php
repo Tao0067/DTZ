@@ -28,10 +28,10 @@ class WeixinController
         $tmpStr = implode('',$tmpArr);
         $tmpStr = sha1($tmpStr);
         Log::info($tmpStr);
-
+        echo $echostr;
         if ($signature == $tmpStr) {
             Log::info($echostr);
-            echo $echostr;
+
         }
 
     }
