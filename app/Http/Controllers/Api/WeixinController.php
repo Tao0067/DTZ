@@ -21,18 +21,18 @@ class WeixinController
         $nonce = $request->input('nonce');
         $echostr = $request->input('echostr');
         $token = 'cscscs';
-//        Log::info($request->all());
+        Log::info($request->all());
 
         $tmpArr =  array($timestamp, $nonce, $token);
         sort($tmpArr);
         $tmpStr = implode('',$tmpArr);
         $tmpStr = sha1($tmpStr);
-//        Log::info($tmpStr);
+        Log::info($tmpStr);
 
-        if ($signature != $tmpStr) {
-            return response()->json(false);
+        if ($signature == $tmpStr) {
+            return response()->json($echostr);
+            Log::info($echostr);
         }
 
-        return response()->json(true);
     }
 }
