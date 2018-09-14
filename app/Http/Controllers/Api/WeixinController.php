@@ -20,7 +20,7 @@ class WeixinController
         $timestamp = $request->input('timestamp');
         $nonce = $request->input('nonce');
         $echostr = $request->input('echostr');
-        $token = 'cscscs';
+        $token = 'hnct';
         Log::info($request->all());
 
         $tmpArr =  array($timestamp, $nonce, $token);
