@@ -62,7 +62,7 @@ class WeixinController extends ApiController
     {
         $accessToken = $this->accessToken();
 
-        return $this->message($accessToken);
+        return $this->success($accessToken);
     }
 
 

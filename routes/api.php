@@ -45,6 +45,6 @@ Route::get('/inter/index','Api\InteractiveController@index');
 
 
 Route::get('/weixin/index','Api\WeixinController@index');
-Route::get('/accessToken','Api\WeixinController@accessToken');
+Route::get('/accessToken','Api\WeixinController@getAccessToken');
 
 
