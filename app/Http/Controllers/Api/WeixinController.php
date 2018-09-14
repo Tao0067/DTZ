@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Api;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class WeixinController extends ApiController
 {
@@ -38,15 +39,30 @@ class WeixinController extends ApiController
 
     public function accessToken()
     {
-        $http = new Client();
-        $url  = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
-        $url .='&appid='.env('WX_APP_ID');
-        $url .='&secret='.env('WX_APP_SECRET');
 
-        $response  = $http->get($url);
-        $data = json_decode($response->getBody(), true);
+        if (Redis::EXISTS('wx_accessToken')) {
+            return Redis::GET('wx_accessToken');
+        }else{
+            $http = new Client();
+            $url  = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
+            $url .='&appid='.env('WX_APP_ID');
+            $url .='&secret='.env('WX_APP_SECRET');
 
-        return $this->success($data);
+            $response  = $http->get($url);
+            $data = json_decode($response->getBody(), true);
+
+            Redis::SETEX('wx_accessToken',7200,$data['access_token']);
+            return $data['access_token'];
+        }
+
+    }
+
+
+    public function getAccessToken()
+    {
+        $accessToken = $this->accessToken();
+
+        return $this->success($accessToken);
     }
 
 
