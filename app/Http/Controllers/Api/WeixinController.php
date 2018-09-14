@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WeixinController
 {
@@ -20,11 +21,13 @@ class WeixinController
         $nonce = $request->input('nonce');
         $echostr = $request->input('echostr');
         $token = 'cscscs';
+        Log::info($request->all());
 
         $tmpArr =  array($timestamp, $nonce, $token);
         sort($tmpArr);
         $tmpStr = implode('',$tmpArr);
         $tmpStr = sha1($tmpStr);
+        Log::info($tmpStr);
 
         if ($signature != $tmpStr) {
             return response()->json($token);
