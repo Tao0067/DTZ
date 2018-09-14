@@ -9,10 +9,11 @@
 namespace App\Http\Controllers\Api;
 
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class WeixinController
+class WeixinController extends ApiController
 {
     public function index(Request $request)
     {
@@ -21,18 +22,33 @@ class WeixinController
         $nonce = $request->input('nonce');
         $echostr = $request->input('echostr');
         $token = 'hnct';
-        Log::info($request->all());
+//        Log::info($request->all());
 
         $tmpArr =  array($timestamp, $nonce, $token);
         sort($tmpArr);
         $tmpStr = implode('',$tmpArr);
         $tmpStr = sha1($tmpStr);
-        Log::info($tmpStr);
-        echo $echostr;
+//        Log::info($tmpStr);
         if ($signature == $tmpStr) {
-            Log::info($echostr);
+            echo $echostr;
 
         }
 
     }
+
+    public function accessToken()
+    {
+        $http = new Client();
+        $url  = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
+        $url .='&appid='.env('WX_APP_ID');
+        $url .='&secret='.env('WX_APP_SECRET');
+
+        $response  = $http->get($url);
+        $data = json_decode($response->getBody(), true);
+
+        return $this->success($data);
+    }
+
+
+
 }
