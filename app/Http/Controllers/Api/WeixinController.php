@@ -49,7 +49,7 @@ class WeixinController extends ApiController
             $url .='&secret='.env('WX_APP_SECRET');
 
             $response  = $http->get($url);
-            $data = json_decode($response->getBody(), true);
+            $data = json_decode((string)$response->getBody(), true);
 
             Redis::SETEX('wx_accessToken',7200,$data['access_token']);
             return $data['access_token'];
@@ -62,7 +62,7 @@ class WeixinController extends ApiController
     {
         $accessToken = $this->accessToken();
 
-        return $this->success(['accessToken' => $accessToken]);
+        return $this->message($accessToken);
     }
 
 
