@@ -43,3 +43,7 @@ Route::group(['middleware' => ['jwt.api.auth']], function () { //
 Route::get('/inter/index','Api\InteractiveController@index');
 
 
+
+Route::get('/weixin/index','Api\WeixinController@index');
+
+
