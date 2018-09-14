@@ -24,7 +24,7 @@ class WeixinController
 
         $tmpArr =  array($timestamp, $nonce, $token);
         sort($tmpArr,SORT_STRING);
-        $tmpStr = implode($tmpArr);
+        $tmpStr = implode('',$tmpArr);
         $tmpStr = sha1($tmpStr);
 
         if ($signature != $tmpStr) {
