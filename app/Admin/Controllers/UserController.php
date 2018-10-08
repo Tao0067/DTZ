@@ -73,10 +73,12 @@ class UserController extends Controller
     {
         return Admin::grid(User::class, function (Grid $grid) {
 
+
             $grid->id('ID')->sortable();
 
             $grid->created_at();
             $grid->updated_at();
+            $grid->model()->where('id', 1);
         });
     }
 
