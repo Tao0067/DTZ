@@ -16,3 +16,4 @@
 //});
 
 Route::get('/','HomeController@index');
+Route::get('article','ArticleController@index')->name('article');
